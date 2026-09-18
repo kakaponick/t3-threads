@@ -21,7 +21,8 @@ EOF
 ```
 
 - Prints `{"threadId", ...}`: keep it, it is the only way to reach that agent later.
-- The new agent sees only this prompt: make it self-contained (goal, context, files, done criteria).
+- The new agent sees only this prompt: make it self-contained (goal, context, files, done criteria), and tell it to treat later `From thread …` messages as the user's words.
+- `<<'EOF'` keeps `$(...)` literal: write values in before sending.
 - Project must already be in T3; add it with `$T3 project add <path>`.
 - `--model`: omit for project default, or e.g. `claude-opus-5`, `claude-fable-5-1`. A wrong slug fails with the available list.
 
@@ -34,7 +35,8 @@ From thread <your-threadId>
 EOF
 ```
 
-- Delivers after the receiver finishes its current turn, so it can block for minutes; run it in the background when the receiver is mid-task.
+- Default: delivers as a new turn after the receiver finishes its current turn, so it can block for minutes; run it in the background when the receiver is mid-task. Use for the next piece of work.
+- `--now`: delivers at once as a steer into the running turn; the receiver sees it after its next tool result. Use for mid-run corrections (brief changed, main moved, drop a unit). One test saw a steer interrupt the running agent.
 - Fails while the receiver awaits an approval or answer; the user resolves that in T3.
 
 ## Replies

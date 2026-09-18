@@ -22,9 +22,10 @@ Keep T3 Code desktop updated: the CLI shares its database.
 
 ```bash
 t3 thread start <project> <prompt> [--model <slug>] [--title <title>] [--json]
-t3 thread send <threadId> <prompt> [--json]
+t3 thread send <threadId> <prompt> [--now] [--json]
 ```
 
 - `start`: new thread in a project added to T3 Code.
 - `send`: next message to a thread. Waits until the agent finishes its turn.
+- `send --now`: sends right away into the running turn.
 - `-` instead of `<prompt>` reads stdin.
